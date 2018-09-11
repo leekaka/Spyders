@@ -3,7 +3,7 @@ import sys
 import os.path
 from glob import glob
 
-def detect(filename, cascade_file="haarcascade_frontalface_alt.xml"):
+def detect(filename, cascade_file="haarcascade_frontalface_alt2.xml"):
     if not os.path.isfile(cascade_file):
         raise RuntimeError("%s: not found" % cascade_file)
 
@@ -11,6 +11,7 @@ def detect(filename, cascade_file="haarcascade_frontalface_alt.xml"):
     image = cv2.imread(filename)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     gray = cv2.equalizeHist(gray)
+
 
     faces = cascade.detectMultiScale(gray,
                                      # detector options
@@ -30,5 +31,6 @@ if __name__ == '__main__':
         os.makedirs('faces')
     file_list = glob(r'../photo-gevent/pics/*.jpg')
     for filename in file_list:
-        print(filename)
+        
         detect(filename)
+        print(filename)
